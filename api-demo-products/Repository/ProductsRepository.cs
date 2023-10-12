@@ -1,6 +1,7 @@
 ﻿using api_demo_products.Data;
 using api_demo_products.Interfaces;
 using api_demo_products.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api_demo_products.Repository
 {
@@ -25,14 +26,9 @@ namespace api_demo_products.Repository
             return 0;
         }
 
-        public List<Product>? RetrieveProducts()
+        public DbSet<Product>? RetrieveProducts()
         {
-            return _productContext.Products?.ToList();
-        }
-
-        public Product? RetrieveProduct(int id)
-        {
-            return _productContext.Products.FirstOrDefault(x => x.Id == id);
+            return _productContext.Products;
         }
     }
 }
