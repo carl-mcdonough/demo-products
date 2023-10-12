@@ -28,19 +28,29 @@ namespace api_demo_products.Logic
             var newProductId = _productRepository.SaveProduct(newProduct);
 
             if (newProductId > 0)
-                return GetProduct(newProductId);
+            {
+                return new Product() {
+                    Id = newProductId,
+                    Name = request.Name,
+                    Description = request.Description,
+                    Price = request.Price
+                };
+            }
 
             return default;
         }
 
         public Product? GetProduct(int id)
         {
-            return _productRepository.RetrieveProduct(id);
+            return _productRepository.RetrieveProducts()?
+                                     .Where(x => x.Id == id)
+                                     .FirstOrDefault();
         }
 
         public List<Product>? GetProducts()
         {
-            return _productRepository?.RetrieveProducts()?.ToList();
+            return _productRepository?.RetrieveProducts()?
+                                      .ToList();
         }
 
         public List<Product>? GetProducts(int count)
@@ -48,7 +58,8 @@ namespace api_demo_products.Logic
             var expensiveProducts = _productRepository?.RetrieveProducts()?
                             .Where(x => x.Price > 0)?
                             .OrderByDescending(y => y.Price)
-                            .Take(count).ToList();
+                            .Take(count)
+                            .ToList();
 
             return expensiveProducts;
         }

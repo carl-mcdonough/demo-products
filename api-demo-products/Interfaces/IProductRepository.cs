@@ -7,6 +7,5 @@ namespace api_demo_products.Interfaces
     {
         int SaveProduct(Product newProduct);
         DbSet<Product>? RetrieveProducts();
-        Product? RetrieveProduct(int id);
     }
 }
