@@ -67,5 +67,20 @@ namespace api_demo_products.Controllers
             else
                 return Ok(product);
         }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Product>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("expensive/{count}")]
+        [HttpGet]
+        public IActionResult GetExpensiveProducts([FromRoute] int count)
+        {
+            List<Product>? products = _productManager?.GetProducts(count);
+
+            if (products == null)
+                return NotFound();
+            else
+                return Ok(products);
+        }
     }
 }

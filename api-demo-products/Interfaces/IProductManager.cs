@@ -6,6 +6,7 @@ namespace api_demo_products.Interfaces
     {
         Product? AddProduct(ProductRequest request);
         List<Product>? GetProducts();
+        List<Product>? GetProducts(int count);
         Product? GetProduct(int id);
     }
 }

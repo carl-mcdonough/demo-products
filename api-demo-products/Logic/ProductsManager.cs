@@ -1,4 +1,5 @@
-﻿using api_demo_products.Interfaces;
+﻿using System.Linq;
+using api_demo_products.Interfaces;
 using api_demo_products.Models;
 
 namespace api_demo_products.Logic
@@ -39,7 +40,17 @@ namespace api_demo_products.Logic
 
         public List<Product>? GetProducts()
         {
-            return _productRepository.RetrieveProducts();
+            return _productRepository?.RetrieveProducts()?.ToList();
+        }
+
+        public List<Product>? GetProducts(int count)
+        {
+            var expensiveProducts = _productRepository?.RetrieveProducts()?
+                            .Where(x => x.Price > 0)?
+                            .OrderByDescending(y => y.Price)
+                            .Take(count).ToList();
+
+            return expensiveProducts;
         }
     }
 }
