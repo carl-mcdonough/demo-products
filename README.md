@@ -7,6 +7,8 @@ This is a simple products API that has the following operations/endpoints:
   - Retrieve all available products from the database
 - GET /products/{id}
   - Retrieve specific product from the database
+- GET /products/expensive/{count}
+  - Retrieve a number of the most expensive products. 
 
 
 Technology used:
